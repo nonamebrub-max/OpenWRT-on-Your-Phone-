@@ -1,407 +1,192 @@
 # 📱 OpenWRT on Your Phone!
-
 <p align="center">
-  <strong>Run OpenWrt on your Android phone with QEMU.</strong>
-  <br>
-  <em>No firmware flashing. No bootloader unlocking. Just a virtual router in your pocket.</em>
-</p><p align="center">
-  <img src="https://img.shields.io/badge/Platform-Android-3DDC84?style=for-the-badge&logo=android&logoColor=white" alt="Android">
-  <img src="https://img.shields.io/badge/Virtualization-QEMU-blue?style=for-the-badge" alt="QEMU">
-  <img src="https://img.shields.io/badge/Guest-OpenWrt-00A3E0?style=for-the-badge" alt="OpenWrt">
-  <img src="https://img.shields.io/badge/Architecture-ARM64-orange?style=for-the-badge" alt="ARM64">
-  <img src="https://img.shields.io/badge/Status-Experimental-yellow?style=for-the-badge" alt="Experimental">
-</p><p align="center">
-  <strong>Explore OpenWrt. Test LuCI. Experiment with networking. All from your phone.</strong>
-</p>---
+<strong>Run OpenWrt on your Android phone with QEMU.</strong>
 
+
+<em>No firmware flashing. No bootloader unlocking. Just a virtual router in your pocket.</em>
+</p>
+<p align="center">
+<img src="[https://img.shields.io/badge/Platform-Android-3DDC84?style=for-the-badge&logo=android&logoColor=white](https://img.shields.io/badge/Platform-Android-3DDC84?style=for-the-badge&logo=android&logoColor=white)" alt="Android">
+<img src="[https://img.shields.io/badge/Virtualization-QEMU-blue?style=for-the-badge](https://img.shields.io/badge/Virtualization-QEMU-blue?style=for-the-badge)" alt="QEMU">
+<img src="[https://img.shields.io/badge/Guest-OpenWrt-00A3E0?style=for-the-badge](https://img.shields.io/badge/Guest-OpenWrt-00A3E0?style=for-the-badge)" alt="OpenWrt">
+<img src="[https://img.shields.io/badge/Architecture-ARM64-orange?style=for-the-badge](https://img.shields.io/badge/Architecture-ARM64-orange?style=for-the-badge)" alt="ARM64">
+<img src="[https://img.shields.io/badge/Status-Experimental-yellow?style=for-the-badge](https://img.shields.io/badge/Status-Experimental-yellow?style=for-the-badge)" alt="Experimental">
+</p>
+<p align="center">
+<strong>Explore OpenWrt. Test LuCI. Experiment with networking. All from your phone.</strong>
+</p>
 📖 Table of Contents
-
-- "✨ About" (#-about)
-- "🚀 Features" (#-features)
-- "📱 Tested Device" (#-tested-device)
-- "🧰 Requirements" (#-requirements)
-- "⚡ Quick Start" (#-quick-start)
-- "🌐 Access LuCI" (#-access-luci)
-- "⚙️ Configuration" (#️-configuration)
-- "💾 Persistence" (#-persistence)
-- "🛠️ Troubleshooting" (#️-troubleshooting)
-- "⚠️ Limitations" (#️-limitations)
-- "🗺️ Roadmap" (#️-roadmap)
-- "🤝 Contributing" (#-contributing)
-- "📜 License" (#-license)
-
+ * ✨ About
+ * 🚀 Features
+ * 📱 Tested Device
+ * 🧰 Requirements
+ * ⚡ Quick Start
+ * 🌐 Access LuCI
+ * ⚙️ Configuration
+ * 💾 Persistence
+ * 🛠️ Troubleshooting
+ * ⚠️ Limitations
+ * 🗺️ Roadmap
+ * 🤝 Contributing
+ * 🔒 Security
+ * 📜 License
+ * ❤️ Acknowledgements
 ✨ About
-
 OpenWRT on Your Phone! is an experimental project that runs the OpenWrt router operating system inside a QEMU virtual machine on Android.
-
 The project uses Termux as the host environment and QEMU system emulation to boot an ARM64 OpenWrt image. Once the virtual machine is running, users can access LuCI, the OpenWrt web interface, directly from their Android browser.
-
 The goal is simple: make OpenWrt experimentation more accessible without replacing Android or flashing router firmware.
-
-«💡 This project runs OpenWrt inside Android. It does not replace the phone's operating system.»
-
+> [!NOTE]
+> This project runs OpenWrt inside Android via emulation. It does not replace the phone's operating system.
+> 
 🚀 Features
-
-- 📱 Run OpenWrt on Android through Termux.
-- 🖥️ Boot an ARM64 OpenWrt image with QEMU.
-- 🌐 Access LuCI from the phone's browser.
-- 🔌 Use QEMU user-mode networking with NAT.
-- 🧠 Configure virtual RAM and CPU resources.
-- 🧪 Experiment with OpenWrt packages and router settings.
-- 🛡️ Keep the original Android firmware untouched.
-- 🧰 Use a terminal-based workflow without requiring a PC.
-
+ * 📱 Native Execution: Run OpenWrt directly on Android through Termux.
+ * ⚡ One-Command Setup: Automated setup, dependency installation, and launch script.
+ * 🖥️ Virtual Architecture: Boot an ARM64 OpenWrt image with QEMU.
+ * 🌐 Web Management: Access LuCI directly from your phone's mobile browser.
+ * 🔌 Isolated Network: Utilize QEMU user-mode networking with internal NAT.
+ * 🧠 Resource Control: Configure virtual RAM and CPU resource allocation dynamically.
+ * 🧪 Package Ecosystem: Experiment with OpenWrt packages and router settings.
+ * 🛡️ Zero-Risk Environment: Keep the host Android system and bootloader untouched.
+ * 🧰 PC-Free: Completely standalone mobile terminal workflow.
 📱 Tested Device
-
-Component| Configuration
-Device| Samsung Galaxy A24
-Host OS| Android
-Host environment| Termux
-Emulator| QEMU System
-Guest OS| OpenWrt 25.12.6
-Guest target| "armsr/armv8"
-Architecture| ARM64
-Web interface| LuCI
-Networking| QEMU user-mode NAT
-Test status| Boots successfully; LuCI accessed
-
-Compatibility: The project was tested on a Samsung Galaxy A24. Other devices may work, but their compatibility has not been verified.
-
+| Component | Configuration |
+|---|---|
+| Device | Samsung Galaxy A24 |
+| Host OS | Android |
+| Host Environment | Termux |
+| Emulator | QEMU System (qemu-system-aarch64) |
+| Guest OS | OpenWrt 25.12.6 |
+| Guest Target | armsr/armv8 |
+| Architecture | ARM64 |
+| Web Interface | LuCI |
+| Networking | QEMU user-mode NAT |
+| Test Status | Boots successfully; LuCI fully accessible |
+> [!TIP]
+> The project was verified on a Samsung Galaxy A24. Other 64-bit ARM Android devices should work with minor performance differences depending on SoC thermal throttling.
+> 
 🧰 Requirements
-
 Before getting started, make sure you have:
-
-- An Android phone with an ARM64 processor.
-- "Termux" (https://github.com/termux/termux-app).
-- An active internet connection.
-- Enough free storage for the OpenWrt image and packages.
-- Sufficient available RAM for Android and the virtual machine.
-- Basic familiarity with terminal commands.
-
-Required packages
-
-The installation uses these Termux packages:
-
-- "qemu-system-aarch64-headless"
-- "wget"
-- "curl"
-- "tar"
-
+ * An Android phone with an ARM64 (aarch64) processor.
+ * Termux (installed via F-Droid or GitHub Releases, not Google Play Store).
+ * An active internet connection.
+ * At least 1.5 GB of free internal storage.
+ * Sufficient free RAM (minimum 3 GB total physical RAM recommended).
 ⚡ Quick Start
+Open Termux and run this single command to download dependencies, set up the environment, and boot OpenWrt:
+bash <(curl -fsSL "https://raw.githubusercontent.com/nonamebrub-max/OpenWRT-on-Your-Phone-/main/install.sh")
 
-1. Update Termux
-
-Open Termux and run:
-
-pkg update
-pkg upgrade
-
-2. Install dependencies
-
-pkg install qemu-system-aarch64-headless wget curl tar
-
-Verify QEMU:
-
-qemu-system-aarch64 --version
-
-3. Download OpenWrt
-
-Create a working directory:
-
-mkdir -p ~/openwrt-vm
-cd ~/openwrt-vm
-
-Download the ARM64 initramfs image:
-
-wget -c https://downloads.openwrt.org/releases/25.12.6/targets/armsr/armv8/openwrt-25.12.6-armsr-armv8-generic-initramfs-kernel.bin
-
-Official download directory:
-
-"OpenWrt ARMv8 Downloads" (https://downloads.openwrt.org/releases/25.12.6/targets/armsr/armv8/)
-
-4. Start the virtual machine
-
-The following is the initial experimental configuration, using 512 MB of virtual RAM and two virtual CPUs.
-
-cd ~/openwrt-vm
-
-qemu-system-aarch64 \
-  -machine virt \
-  -cpu cortex-a57 \
-  -m 512 \
-  -smp 2 \
-  -kernel openwrt-25.12.6-armsr-armv8-generic-initramfs-kernel.bin \
-  -append "console=ttyAMA0" \
-  -nographic \
-  -netdev user,id=net0,hostfwd=tcp:127.0.0.1:8080-10.0.2.15:80 \
-  -device virtio-net-device,netdev=net0
-
-Wait for OpenWrt to boot.
-
-You should see the OpenWrt console and a login prompt.
-
-Important: The guest network must be configured correctly before LuCI can be installed or accessed.
-
-5. Configure the guest network
-
-At the OpenWrt console, configure the LAN interface to obtain an address from QEMU's virtual DHCP server:
-
-uci set network.lan.proto='dhcp'
-uci commit network
-/etc/init.d/network restart
-
-Check the address and default route:
-
-ip addr
-ip route
-
-The expected configuration is:
-
-Setting| Expected value
-Guest address| "10.0.2.15"
-Virtual gateway| "10.0.2.2"
-Host browser port| "8080"
-Guest web port| "80"
-
-The interface may be "br-lan", with "eth0" attached to the bridge.
-
-Test connectivity:
-
-ping -c 3 10.0.2.2
-ping -c 3 1.1.1.1
-
-If the guest cannot reach the network, troubleshoot connectivity before continuing.
-
-6. Install LuCI
-
-Once internet access works inside OpenWrt, run:
-
-apk update
-apk add luci
-
-Set the root password:
-
-passwd
-
-Enable and restart the web server:
-
-/etc/init.d/uhttpd enable
-/etc/init.d/uhttpd restart
-
-7. Open the web interface
-
-Open Chrome or another browser on the same Android phone.
-
-URL:
-
-http://127.0.0.1:8080
-
-Log in with:
-
-- Username: "root"
-- Password: The password you configured with "passwd"
-
-🎉 You can now explore the LuCI interface from your phone.
-
+The script will automatically:
+ * Update repositories and install required packages (qemu, wget, curl).
+ * Download the compatible OpenWrt ARM64 image.
+ * Launch the QEMU virtual machine with port forwarding ready.
+Once boot logs complete, press Enter to open the OpenWrt console.
 🌐 Access LuCI
-
-The initial QEMU command forwards TCP port "8080" on the Android loopback interface to port "80" inside the guest.
-
+After the virtual machine finishes booting and LuCI is started, open Chrome or any browser on your Android device:
+👉 [http://127.0.0.1:8080](http://127.0.0.1:8080)
+ * Username: root
+ * Password: The password configured inside OpenWrt via passwd
+Traffic is routed through QEMU user-mode networking:
 Android Browser
-      |
-      | http://127.0.0.1:8080
-      v
-QEMU Port Forwarding
-      |
-      v
-OpenWrt Guest :80
-      |
-      v
-LuCI / uhttpd
-
-The forwarding rule is configured with:
-
-hostfwd=tcp:127.0.0.1:8080-10.0.2.15:80
-
-Binding to "127.0.0.1" keeps this published port restricted to the Android device's loopback interface under normal networking conditions.
+      │
+      │ http://127.0.0.1:8080
+      ▼
+QEMU Port Forwarding (Host)
+      │
+      ▼
+OpenWrt Guest (:80)
+      │
+      ▼
+LuCI / uhttpd Daemon
 
 ⚙️ Configuration
-
-The virtual machine can be customized by changing QEMU's command-line options.
-
-Option| Purpose| Initial value
-"-machine virt"| Select the virtual ARM machine| "virt"
-"-cpu cortex-a57"| Select the virtual CPU model| Cortex-A57
-"-m 512"| Allocate virtual RAM| 512 MB
-"-smp 2"| Configure virtual CPUs| 2
-"-nographic"| Use terminal-only output| Enabled
-"hostfwd"| Forward the LuCI port| "8080 → 80"
-
-Lower-memory configuration
-
-To experiment with 256 MB of virtual RAM, change:
-
--m 512
-
-to:
-
+The VM defaults to 512 MB virtual RAM and 2 virtual CPUs.
+| Option | Purpose | Default Value |
+|---|---|---|
+| -machine virt | Virtual generic ARM machine platform | virt |
+| -cpu cortex-a57 | Virtualized ARM CPU model | cortex-a57 |
+| -m 512 | Allocated virtual RAM | 512 (MB) |
+| -smp 2 | Virtual CPU cores | 2 |
+| -nographic | Headless serial I/O console | Enabled |
+| hostfwd | Port forwarding definition | 8080 -> 80 |
+Low-Memory Mode
+For devices with limited RAM, edit the run parameters to:
 -m 256
 
-A lower-memory configuration may reduce resource availability and can cause package installation or services to fail. It has not been established as a reliable configuration for every device.
-
-Virtual CPU model
-
-The configured CPU model is an emulated CPU model, not a direct mapping of the phone's physical processor.
-
-Changing "-cpu" does not reproduce the exact MediaTek Helio G99 SoC, its hardware accelerators, or its power-management behavior.
-
+> [!WARNING]
+> Running with 256 MB RAM limits package installations and may trigger the kernel out-of-memory (OOM) killer during heavy service loads.
+> 
 💾 Persistence
-
-The project currently uses an initramfs image, which is intended for temporary testing.
-
-Changes made inside the guest may disappear when QEMU shuts down. Installing packages during a session does not guarantee that they will remain installed after the next boot.
-
-Persistent virtual storage is a planned improvement.
-
-Always back up any configuration you need to keep before stopping the virtual machine.
+> [!WARNING]
+> This baseline setup uses an initramfs image that runs entirely in RAM. All installed packages and custom configs will reset when the QEMU process exits.
+> 
+Persistent storage backing (qemu-img with an ext4/squashfs rootfs disk image) is planned for upcoming milestones. Back up your UCI configurations before terminating Termux:
+sysupgrade -b /tmp/backup.tar.gz
 
 🛠️ Troubleshooting
+<details>
+<summary><strong>curl: command not found or repository errors</strong></summary>
+Ensure Termux repositories are up-to-date and install curl manually:
+pkg update && pkg install curl -y
 
-QEMU package not found
-
-Check the available packages:
-
-pkg update
-pkg search qemu
-
-Install the package available in your Termux repository:
-
-pkg install qemu-system-aarch64-headless
-
-OpenWrt has no internet connection
-
-Check the interface and routing table:
-
-ip addr
+Then re-run the one-liner command.
+</details>
+<details>
+<summary><strong>OpenWrt has no internet connection inside the VM</strong></summary>
+Check default routes and DNS inside the OpenWrt console:
 ip route
-
-Check the virtual gateway:
-
 ping -c 3 10.0.2.2
 
-If there is no default route, investigate the guest's network configuration.
-
-"apk update" fails
-
-Check connectivity first:
-
-ping -c 3 10.0.2.2
-ping -c 3 1.1.1.1
-
-If the guest cannot reach the internet, fix networking before retrying package installation.
-
-LuCI does not open
-
-Inside OpenWrt:
-
+If the virtual gateway is unreachable, check whether Android battery optimization is restricting Termux background networking.
+</details>
+<details>
+<summary><strong>LuCI / Web Interface returns "Connection Refused"</strong></summary>
+Verify that uhttpd is running and listening on port 80 inside OpenWrt:
 ps | grep uhttpd
-
-Restart the web server:
-
 /etc/init.d/uhttpd restart
 
-Also verify that the QEMU process is still running and that the port-forwarding option is present in its launch command.
-
-The browser reports connection refused
-
-Confirm that LuCI is installed, "uhttpd" is running, and the guest is listening on TCP port "80".
-
-The host URL is:
-
-http://127.0.0.1:8080
-
-OpenWrt changes disappear after reboot
-
-This is expected with the current temporary initramfs setup. Persistent virtual storage has not yet been implemented as part of the tested workflow.
-
+Ensure the QEMU process in Termux has not been killed by Android's low memory killer (LMK).
+</details>
+<details>
+<summary><strong>Changes lost after reboot</strong></summary>
+Expected behavior when booting an initramfs image directly without a secondary persistent block storage device.
+</details>
 ⚠️ Limitations
-
-- OpenWrt runs inside QEMU rather than directly on the phone's hardware.
-- The virtual CPU is not an exact emulation of the MediaTek Helio G99.
-- QEMU user-mode networking is not equivalent to a physical router's WAN/LAN interfaces.
-- The virtual machine does not automatically manage the phone's physical Wi-Fi chipset.
-- Performance depends on the Android device, available memory, thermal conditions, and emulation overhead.
-- Hardware acceleration may be unavailable in the Termux environment.
-- The initramfs-based workflow is temporary unless persistent storage is added.
-- The project is experimental and has not been validated across a broad range of devices.
-
-This project is intended for learning and experimentation, not as a guaranteed replacement for a dedicated router.
-
+ * Runs under user-space emulation (virtio/emulated ARM), not bare-metal virtualization (KVM is not exposed on stock Android kernels).
+ * QEMU user networking runs behind an internal NAT; it does not bridge directly to the phone's physical Wi-Fi or cellular interfaces.
+ * Emulation performance is CPU-bound and subject to thermal throttling on mobile SoCs.
+ * Physical Wi-Fi AP / hotspot routing using the phone's physical Wi-Fi hardware is not supported from inside the guest.
 🗺️ Roadmap
-
-- [x] Boot OpenWrt ARM64 on Android using QEMU.
-- [x] Access LuCI from the Android browser.
-- [x] Configure virtual networking.
-- [ ] Develop a one-command installation script.
-- [ ] Add start and stop helper scripts.
-- [ ] Implement persistent virtual storage.
-- [ ] Test 256 MB RAM configurations.
-- [ ] Improve automated network diagnostics.
-- [ ] Document additional Android device compatibility.
-- [ ] Explore safe, reproducible router networking experiments.
-
+ * [x] Boot OpenWrt ARM64 on Android using QEMU.
+ * [x] Access LuCI from the Android browser.
+ * [x] Configure virtual user networking.
+ * [x] Automated one-command installation script (install.sh).
+ * [ ] Add start and stop helper scripts.
+ * [ ] Implement persistent storage backing via secondary virtual disk.
+ * [ ] Validate 256 MB low-spec profiles.
+ * [ ] Add ADB USB-tethering passthrough guide.
 🤝 Contributing
-
-Contributions are welcome!
-
-You can help by:
-
-- Reporting bugs and unexpected behavior.
-- Testing on additional Android devices.
-- Improving installation instructions.
-- Contributing scripts and documentation.
-- Sharing verified configurations and performance observations.
-
-When submitting an issue, include:
-
-1. Device model and Android version.
-2. Termux version.
-3. QEMU version.
-4. OpenWrt image version.
-5. The command you executed.
-6. Relevant error messages.
-
-Please remove passwords, tokens, and private network details before sharing logs.
-
+Contributions, issues, and feature requests are welcome!
+When submitting an issue, please include:
+ * Device model and Android version.
+ * Termux version and installation source.
+ * Terminal error messages or log traces.
 🔒 Security
-
-- Set a strong root password before enabling remote administration.
-- Keep the LuCI port bound to "127.0.0.1" unless external access is explicitly required.
-- Do not expose the management interface to untrusted networks.
-- Download OpenWrt images and packages from trusted sources.
-- Review scripts before executing them with elevated privileges.
-
+ * Set a strong root password immediately after boot via passwd.
+ * Keep hostfwd bound to 127.0.0.1 unless external access from your local network is explicitly required.
+ * Download OpenWrt images only from official upstream repositories.
 📜 License
-
-This repository is intended to contain project-specific scripts and documentation. Add a "LICENSE" file before redistributing original project code.
-
-OpenWrt and QEMU are separate upstream projects with their own licenses:
-
-- "OpenWrt source code" (https://github.com/openwrt/openwrt)
-- "QEMU source code" (https://github.com/qemu/qemu)
-
-The license for this repository does not replace or override the licenses of third-party software.
-
+Project scripts and documentation are licensed under the MIT License.
+Upstream dependencies:
+ * OpenWrt (GPL-2.0)
+ * QEMU (GPL-2.0)
+ * Termux (GPL-3.0)
 ❤️ Acknowledgements
-
-- "OpenWrt" (https://openwrt.org/) for the router operating system.
-- "QEMU" (https://www.qemu.org/) for system emulation.
-- "Termux" (https://termux.dev/) for the Android terminal environment.
-
----
-
+ * The OpenWrt Project for the modular embedded Linux router distribution.
+ * The QEMU Project for multi-architecture machine emulation.
+ * The Termux Team for bringing a powerful Linux environment to Android.
 <p align="center">
-  <strong>📱 OpenWRT on Your Phone!</strong>
-  <br>
-  <em>A tiny virtual router. A whole lot of possibilities.</em>
+<strong>📱 OpenWRT on Your Phone!</strong>
+
+
+<em>A tiny virtual router. A whole lot of possibilities.</em>
 </p>

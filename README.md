@@ -1,4 +1,4 @@
-📱 OpenWRT on Your Phone!
+# 📱 OpenWRT on Your Phone!
 
 <p align="center">
   <strong>Run OpenWrt on your Android phone with QEMU.</strong>
